@@ -1,0 +1,70 @@
+* Transformer API
+** Background
+
+   The idea for this project comes from [[https://twitter.com/bsaeta][Brennan Saeta]] at the [[https://www.tryswift.co/events/2019/sanjose/][try! Swift San Jose 2019 conference]].
+
+   The project is an example API server wrapping a Swift for TensorFlow model, particularly the [[https://github.com/tensorflow/swift-models/tree/master/Transformer][Swift for TensorFlow implementation of OpenAI's GPT-2 Transformer language model]].
+
+** Prerequisites
+
+   - Install [[https://github.com/tensorflow/swift/blob/master/Installation.md#development-snapshots][latest development snapshot of Swift for TensorFlow]]
+
+   - Install Python 3
+
+   NOTE: This project was compiled on Ubuntu 19.04 with the nightly snapshot of Swift for TensorFlow as of [2019-06-06 Thu].
+
+** Setup Python + Ensure Swift for TensorFlow models compile
+
+   #+begin_src sh
+# Build models
+mkdir -p ~/code/swift-source
+cd ~/code/swift-source
+git clone https://github.com/tensorflow/swift-models
+cd swift-models
+# https://github.com/tensorflow/swift-models/blob/master/README.md#build
+swift build -v -Xlinker -ltensorflow
+
+# https://colab.research.google.com/github/tensorflow/swift/blob/master/docs/site/tutorials/python_interoperability.ipynb
+export PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.7m.so.1.0
+
+sudo apt install python3-pip
+pip3 install regex numpy
+
+cd Transformer
+./main 0.5 "My name is"
+   #+end_src
+
+** Serve API
+
+   Terminal 1 : Start server
+
+    #+begin_src sh
+# Switch to this repo
+
+cd Sources/TransformerAPI/
+bash download_model.sh 117M
+
+cd ../..
+swift build
+swift run TransformerAPI
+    #+end_src
+
+    Terminal 2 : Run client
+
+    #+begin_src sh
+curl http://localhost:8888/blabber -d "I'm at a conference" && echo    
+    #+end_src
+
+    Example results:
+
+    #+BEGIN_EXAMPLE
+ with the US Congress on climate change, and I'm talking about the Paris Agreement, which is the main signatory to the Copenhagen Accord. And I think it's important to understand that the Paris Agreement is not a treaty, it's a treaty on climate change.
+
+I think it's important to understand that the Paris Agreement is not a treaty on climate change.
+
+The Paris Agreement is not a treaty on climate change.
+
+And I think that's the kind of thing that we
+    #+END_EXAMPLE
+
+
