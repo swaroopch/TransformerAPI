@@ -1,0 +1,4 @@
+.build
+/Package.resolved
+/Sources/TransformerAPI/__pycache__
+/Sources/TransformerAPI/models
