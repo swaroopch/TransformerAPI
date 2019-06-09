@@ -67,4 +67,11 @@ The Paris Agreement is not a treaty on climate change.
 And I think that's the kind of thing that we
     #+END_EXAMPLE
 
+** FAQ
+
+*** Why swift-nio? Why not Vapor or Kitura?
+
+    Because both projects were not ready for Swift 5 & Ubuntu 19.04, as of [2019-06-07 Fri]. At least, I couldn't get them working.
+
+    Whereas I /was/ able to get a simple swift-nio based http server, thanks to the [[https://github.com/apple/swift-nio/blob/dfe4318c503bdc959e97ddfb2f7ed1d0f399f8f9/Sources/NIOHTTP1Server/main.swift][example code]] & help from [[https://twitter.com/johannesweiss/status/1137024265356578816][actual engineers who work at Apple on swift-nio]] who were present for try! Swift San Jose 2019 :).
 
