@@ -42,7 +42,7 @@ cd Transformer
 # Switch to this repo
 
 cd Sources/TransformerAPI/
-bash download_model.sh 117M
+bash download_model.sh 345M
 
 cd ../..
 swift build
